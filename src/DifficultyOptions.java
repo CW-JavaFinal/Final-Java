@@ -29,6 +29,7 @@ public class DifficultyOptions extends JFrame implements ActionListener
         if (source == easyButton)
         {
             bombCount = 0.25;
+            Easy.main(null);
         }
         else if(source == intermediateButton)
         {
