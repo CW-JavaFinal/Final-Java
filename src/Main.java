@@ -4,7 +4,12 @@ public class Main
     {
         boolean quit = false;
         {
-            SizeOptions.main(null);
+            while (!quit)
+            {
+                GameOptions.main(null);
+                quit = true;
+            }
+
         }
     }
 }
