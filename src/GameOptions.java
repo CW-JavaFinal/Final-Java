@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 public class GameOptions extends JFrame implements ActionListener
 {
-    public int gridSize;
-    public double bombCount;
+    int gridSize;
+    private double bombCount;
     private JButton small = new JButton("Small (9x9)");
     private JButton medium = new JButton("Medium (16x16)");
     private JButton large = new JButton("Large (25x25)");
@@ -15,21 +15,23 @@ public class GameOptions extends JFrame implements ActionListener
     private JButton hardButton = new JButton("Hard (50% bombs)");
     private Container con = getContentPane();
     private FlowLayout layout = new FlowLayout();
+    private FlowLayout layoutDifficulty = new FlowLayout();
     public GameOptions()
     {
         con.setLayout(layout);
-        con.add(easyButton);
-        con.add(intermediateButton);
-        con.add(hardButton);
         con.add(small);
         con.add(medium);
         con.add(large);
-        easyButton.addActionListener(this);
-        intermediateButton.addActionListener(this);
-        hardButton.addActionListener(this);
         small.addActionListener(this);
         medium.addActionListener(this);
         large.addActionListener(this);
+        con.setLayout(layoutDifficulty);
+        con.add(easyButton);
+        con.add(intermediateButton);
+        con.add(hardButton);
+        easyButton.addActionListener(this);
+        intermediateButton.addActionListener(this);
+        hardButton.addActionListener(this);
         easyButton.setPreferredSize(new Dimension(500, 150));
         intermediateButton.setPreferredSize(new Dimension(500, 150));
         hardButton.setPreferredSize(new Dimension(500, 150));
@@ -45,26 +47,38 @@ public class GameOptions extends JFrame implements ActionListener
         if (source == small)
         {
             gridSize = 9;
+            if (bombCount == 0.25 || bombCount == 0.35|| bombCount == 0.50)
+                setVisible(false);
         }
         else if(source == medium)
         {
             gridSize = 16;
+            if (bombCount == 0.25 || bombCount == 0.35|| bombCount == 0.50)
+                setVisible(false);
         }
         else if(source == large)
         {
             gridSize = 25;
+            if (bombCount == 0.25 || bombCount == 0.35|| bombCount == 0.50)
+                setVisible(false);
         }
         if (source == easyButton)
         {
             bombCount = 0.25;
+            if (gridSize == 9 || gridSize == 16|| gridSize == 25)
+                setVisible(false);
         }
         else if(source == intermediateButton)
         {
             bombCount = 0.35;
+            if (gridSize == 9 || gridSize == 16|| gridSize == 25)
+                setVisible(false);
         }
         else if(source == hardButton)
         {
             bombCount = 0.50;
+            if (gridSize == 9 || gridSize == 16|| gridSize == 25)
+                setVisible(false);
         }
 
         con.invalidate();

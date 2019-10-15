@@ -8,6 +8,7 @@ public class Main
             {
                 GameOptions.main(null);
                 quit = true;
+
             }
 
         }
