@@ -3,11 +3,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GameOptions extends JFrame implements ActionListener
+public class GameOptions extends JFrame implements ActionListener // creates buttons for difficulty and size options
 {
     int gridSize;
     private double bombCount;
-    private JButton small = new JButton("Small (9x9)"); // creates buttons for difficulty and size options
+    private JButton small = new JButton("Small (9x9)");
     private JButton medium = new JButton("Medium (16x16)");
     private JButton large = new JButton("Large (25x25)");
     private JButton easyButton = new JButton("Easy (25% bombs)");
@@ -18,6 +18,10 @@ public class GameOptions extends JFrame implements ActionListener
     private FlowLayout layoutDifficulty = new FlowLayout();
     public GameOptions()
     {
+        this.setTitle("Game Options"); //Title of GUI
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Properly exits when closed
+        this.setVisible(true); //Shows GUI
+        this.setResizable(false); //Can't resize GUI
         con.setLayout(layout);
         con.add(small);
         con.add(medium);

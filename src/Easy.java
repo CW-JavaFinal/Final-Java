@@ -65,7 +65,7 @@ public class Easy implements Runnable {
             public void mouseMoved(MouseEvent mouseEvent) {
                moveX = mouseEvent.getX();
                moveY = mouseEvent.getY();
-               System.out.println("X " + moveX + "Y " + moveY);
+               System.out.println("X " + moveX + " Y " + moveY);
             }
         }
         public class Click implements MouseListener{
