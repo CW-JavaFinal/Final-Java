@@ -71,6 +71,7 @@ public class GameOptions extends JFrame implements ActionListener // creates but
             bombCount = 0.25;
             if (gridSize == 9 || gridSize == 16|| gridSize == 25)
                 setVisible(false); // checks to see if Size has already been selected in order to hide the GUI box
+                Easy.main(null);
         }
         else if(source == intermediateButton)
         {
