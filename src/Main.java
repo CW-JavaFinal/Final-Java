@@ -15,16 +15,27 @@ public class Main
     }
     public static void win()
     {
+        // Paints the JOptionPane green on "You won"
+        UIManager UI = new UIManager();
+        UI.put("OptionPane.background", Color.green);
+        UI.put("Panel.background", Color.green);
         JOptionPane.showMessageDialog(null, "You won!!!");
+        // Calls playAgain()
         playAgain();
     }
     public static void lose()
     {
+        // Paints this JOptionPane red on "You lost..."
+        UIManager UI = new UIManager();
+        UI.put("OptionPane.background", Color.red);
+        UI.put("Panel.background", Color.red);
         JOptionPane.showMessageDialog(null, "You lost...");
+        // Calls playAgain()
         playAgain();
     }
     public static void playAgain()
     {
+        // Paints this JOptionPane orange
         UIManager UI = new UIManager();
         UI.put("OptionPane.background", Color.orange);
         UI.put("Panel.background", Color.orange);

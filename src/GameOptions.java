@@ -5,7 +5,8 @@ import java.awt.event.ActionListener;
 
 public class GameOptions extends JFrame implements ActionListener // creates buttons for difficulty and size options
 {
-    int gridSize;
+    // creates variables for gridSize and bombCount
+    private int gridSize;
     private double bombCount;
     private JButton small = new JButton("Small (9x9)");
     private JButton medium = new JButton("Medium (16x16)");
