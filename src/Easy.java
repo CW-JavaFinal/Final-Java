@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Easy implements Runnable {
     public static void main(String[] args) {
-        GUI gui = new GUI();
+        new GUI();
     }
 
     public static class GUI extends JFrame {
@@ -19,16 +19,19 @@ public class Easy implements Runnable {
 
         int mines[][] = new int[9][9]; //array for bomb placement
         int surroundingSquares[][] = new int[9][9]; //array for the squares around the bombs
-        boolean flag[][] = new boolean[9][9]; //flag placement
+       // boolean flag[][] = new boolean[9][9]; //flag placement
         boolean revealed[][] = new boolean[9][9]; //to reveal
+
+       // public boolean showFlag = false;
 
         public int moveX = -100; //Mouse Movement
         public int moveY = -100;
 
         public GUI() {
             this.setTitle("Easy Minesweeper"); //Title of GUI
-            this.setSize(900, 900); //Size of GUI
+            this.setSize(1286, 836); //Size of GUI
             this.setVisible(true); //Shows GUI
+           // this.setResizable(false);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Properly exits when closed
 
 
@@ -41,7 +44,6 @@ public class Easy implements Runnable {
                         mines[i][j] = 0; //no bomb
                     }
                     revealed[i][j] = false; //this will make it to where the bombs won't show until clicked
-                    flag[i][j] = false;
                 }
             }
             for (int i = 0; i < 9; i++) { //loop counter for square numbers
@@ -73,25 +75,32 @@ public class Easy implements Runnable {
         public class Field extends JPanel {
             public void paintComponent(Graphics g) {
                 g.setColor(Color.DARK_GRAY); //Background color
-                g.fillRect(0, 0, 920, 920); //Background filled
-                for (int i = 0; i < 9; i++){
+                g.fillRect(0, 0, 1280, 800); //Background filled
+                g.setColor(Color.white);
+                g.setFont(new Font("Tahoma", Font.BOLD, 40));
+                g.drawString("Easy Minesweeper", 160, 60); //Title
+                for (int i = 0; i < 9; i++) {
                     for (int j = 0; j < 9; j++) {
                         g.setColor(Color.lightGray); //Space color
-                        if (revealed[i][j] == true)
-                            g.setColor(Color.white);
-                                if (mines[i][j] == 0) {
-                                    g.setFont(new Font("Tahoma", Font.BOLD, 40)); //number display
-                                    g.drawString(Integer.toString(surroundingSquares[i][j]), i * 80 + 27, j * 80 + 93); //placement of #'s
-                                }
-                                else
-                                {
-                                    g.setColor(Color.yellow);
-                                }
-                        if (moveX >= spacing + i * 80 && moveX < i * 80 + 80 - spacing) {
-                            g.setColor(Color.red); //colors the square that mouse is hovering to be clicked
+                        if (revealed[i][j] == true) {
+                            g.setColor(Color.white); //changes when clicked
+                            if (mines[i][j] == 1) {
+                                g.setColor(Color.red); //space turns red and shows "You Lose" JOptionPane
+                                Main.lose();
+                            }
                         }
-                        g.fillRect(spacing + i * 80, spacing + j * 80 + 80, 80 - spacing, 80 - spacing);
+                        g.fillRect(spacing + i * 80, spacing + j * 80 + 80, 80 - 2*spacing, 80 - 2* spacing);
                         //creating each square
+                        if(revealed[i][j] == true)
+                        {
+                            if (mines[i][j] == 0) {
+                                if(surroundingSquares[i][j] != 0)
+                                g.setColor(Color.black); //numbers for figuring out where bombs are
+                                g.setFont(new Font("Tahoma", Font.BOLD, 40)); //number display
+                                g.drawString(Integer.toString(surroundingSquares[i][j]), i * 80 + 27, j * 80 + 135); //placement of #'s
+                            }
+                        }
+
                     }
                 }
             }
@@ -117,8 +126,6 @@ public class Easy implements Runnable {
             public void mouseClicked(MouseEvent mouseEvent) {
                 if (inBoxX() != -1 && inBoxY() != -1) {
                     revealed[inBoxX()][inBoxY()] = true;
-                }
-                if (inBoxX() != -1 && inBoxY() != -1) {
                     System.out.println("Click is in box [" + inBoxX() + " , " + inBoxY() + "]");
                 } else {
                     System.out.println("Not in box.");
@@ -145,18 +152,19 @@ public class Easy implements Runnable {
             public void mouseExited(MouseEvent mouseEvent) {
 
             }
+        }
 
-            public int inBoxX() {
-                for (int i = 0; i < 9; i++) {
-                    for (int j = 0; j < 9; j++) {
-                        if (moveX >= spacing + i * 80 && moveX < i * 80 + 80 - spacing && moveY >= spacing + j * 80 + 106 && moveY < j * 80 + 186 - spacing) {
-                            return i;
-                        }
+        public int inBoxX() {
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if (moveX >= spacing + i * 80 && moveX < i * 80 + 80 - spacing && moveY >= spacing + j * 80 + 106 && moveY < j * 80 + 186 - spacing) {
+                        return i;
                     }
                 }
-                return -1;
             }
+            return -1;
         }
+
 
         public int inBoxY() {
             for (int i = 0; i < 9; i++) {
@@ -186,5 +194,5 @@ public class Easy implements Runnable {
     public void run() {
 
     }
-
 }
+
