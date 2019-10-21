@@ -4,6 +4,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.*;
 import java.awt.*;
+import java.util.Timer;
 
 
 public class Easy implements Runnable {
@@ -16,13 +17,13 @@ public class Easy implements Runnable {
         int surround; //variable for the numbered squares
 
         Random rand = new Random();
+        Timer timer = new Timer();
 
         int mines[][] = new int[9][9]; //array for bomb placement
         int surroundingSquares[][] = new int[9][9]; //array for the squares around the bombs
-       // boolean flag[][] = new boolean[9][9]; //flag placement
-        boolean revealed[][] = new boolean[9][9]; //to reveal
+        boolean flag[][] = new boolean[9][9]; //array for flag placement
+        boolean revealed[][] = new boolean[9][9]; //array to reveal
 
-       // public boolean showFlag = false;
 
         public int moveX = -100; //Mouse Movement
         public int moveY = -100;
@@ -31,9 +32,7 @@ public class Easy implements Runnable {
             this.setTitle("Easy Minesweeper"); //Title of GUI
             this.setSize(1286, 836); //Size of GUI
             this.setVisible(true); //Shows GUI
-           // this.setResizable(false);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Properly exits when closed
-
 
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
@@ -44,6 +43,7 @@ public class Easy implements Runnable {
                         mines[i][j] = 0; //no bomb
                     }
                     revealed[i][j] = false; //this will make it to where the bombs won't show until clicked
+                    flag[i][j] = false;
                 }
             }
             for (int i = 0; i < 9; i++) { //loop counter for square numbers
@@ -79,9 +79,18 @@ public class Easy implements Runnable {
                 g.setColor(Color.white);
                 g.setFont(new Font("Tahoma", Font.BOLD, 40));
                 g.drawString("Easy Minesweeper", 160, 60); //Title
+                g.setFont(new Font("Tahoma", Font.BOLD, 20));
+                g.drawString("Left click to reveal squares!", 720, 100);
+                g.drawString("Right Click to flag squares!", 720, 200);
+
                 for (int i = 0; i < 9; i++) {
                     for (int j = 0; j < 9; j++) {
                         g.setColor(Color.lightGray); //Space color
+                        if(flag[i][j] == true)
+                        {
+                            g.setColor(Color.green); //flagged spaces becomes green
+
+                        }
                         if (revealed[i][j] == true) {
                             g.setColor(Color.white); //changes when clicked
                             if (mines[i][j] == 1) {
@@ -103,6 +112,8 @@ public class Easy implements Runnable {
 
                     }
                 }
+                this.setVisible(false); //refreshes page to show clicks
+                this.setVisible(true);
             }
         }
 
@@ -123,14 +134,21 @@ public class Easy implements Runnable {
         public class Click implements MouseListener {
 
             @Override
-            public void mouseClicked(MouseEvent mouseEvent) {
+            public void mouseClicked(MouseEvent e) {
+                if(e.getButton() == MouseEvent.BUTTON1) //when mouse is left clicked
                 if (inBoxX() != -1 && inBoxY() != -1) {
-                    revealed[inBoxX()][inBoxY()] = true;
+                    revealed[inBoxX()][inBoxY()] = true; //causes the reveal of square to be true
                     System.out.println("Click is in box [" + inBoxX() + " , " + inBoxY() + "]");
                 } else {
                     System.out.println("Not in box.");
                 }
-
+                if(e.getButton() == MouseEvent.BUTTON3) //when mouse is right clicked
+                {
+                    if(inBoxX() != -1 && inBoxY() != -1)
+                    {
+                        flag[inBoxX()][inBoxY()] = true; //flags that square
+                    }
+                }
             }
 
             @Override
@@ -154,7 +172,7 @@ public class Easy implements Runnable {
             }
         }
 
-        public int inBoxX() {
+        public int inBoxX() {//this is to find the x coordinate for which square is being revealed and flagged
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
                     if (moveX >= spacing + i * 80 && moveX < i * 80 + 80 - spacing && moveY >= spacing + j * 80 + 106 && moveY < j * 80 + 186 - spacing) {
@@ -166,7 +184,7 @@ public class Easy implements Runnable {
         }
 
 
-        public int inBoxY() {
+        public int inBoxY() {//this is to find the y coordinate for which square is being revealed and flagged
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
                     if (moveX >= spacing + i * 80 && moveX < i * 80 + 80 - spacing && moveY >= spacing + j * 80 + 106 && moveY < j * 80 + 186 - spacing) {
@@ -177,7 +195,7 @@ public class Easy implements Runnable {
             return -1;
         }
 
-        public boolean isN(int moveX, int moveY, int clickX, int clickY) {
+        public boolean isN(int moveX, int moveY, int clickX, int clickY) {//this is to read the click within the square
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
                     if (moveX - clickX < 2 && moveX - clickX > -2 && moveY - clickY < 2 && moveY - clickY > -2 && mines[clickX][clickY] == 1) {
