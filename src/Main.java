@@ -10,7 +10,7 @@ public class Main
     public static void main(String[] args)
     {
         {
-            GameOptions.main(null); // Calls GameOptions Main
+            new GameOptions(); // Calls GameOptions Main
         }
     }
     public static void win()
@@ -46,12 +46,12 @@ public class Main
         // Calls GameOptions.Main if User types yes
         if (answer.equalsIgnoreCase("Yes"))
         {
-            GameOptions.main(null);
+            new GameOptions();
         }
         // Exits the program if user types no
         else if(answer.equalsIgnoreCase("No"))
         {
-            exit();
+            System.exit(0);
         }
         //Sets wrong to true and puts user through while loop
         else
@@ -65,12 +65,12 @@ public class Main
             if (answer.equalsIgnoreCase("Yes"))
             {
                 wrong = false;
-                GameOptions.main(null);
+                new GameOptions();
             }
             else if(answer.equalsIgnoreCase("No"))
             {
                 wrong = false;
-                exit();
+                System.exit(0);
             }
         }
     }
