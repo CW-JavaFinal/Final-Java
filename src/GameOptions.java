@@ -1,100 +1,133 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
-public class GameOptions extends JFrame implements ActionListener // creates buttons for difficulty and size options
+public class GameOptions extends JFrame // creates buttons for difficulty and size options
 {
-    // creates variables for gridSize and bombCount
-    private int gridSize;
-    private double bombCount;
-    private JButton small = new JButton("Small (9x9)");
-    private JButton medium = new JButton("Medium (16x16)");
-    private JButton large = new JButton("Large (25x25)");
-    private JButton easyButton = new JButton("Easy (25% bombs)");
-    private JButton intermediateButton = new JButton("Intermediate (35% bombs)");
-    private JButton hardButton = new JButton("Hard (50% bombs)");
-    private Container con = getContentPane();
-    private FlowLayout layout = new FlowLayout();
-    private FlowLayout layoutDifficulty = new FlowLayout();
     public GameOptions()
     {
-        this.setTitle("Game Options"); //Title of GUI
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Properly exits when closed
-        this.setVisible(true); //Shows GUI
-        this.setResizable(false); //Can't resize GUI
-        con.setLayout(layout);
-        con.add(small);
-        con.add(medium);
-        con.add(large);
-        small.addActionListener(this);
-        medium.addActionListener(this);
-        large.addActionListener(this);
-        con.setLayout(layoutDifficulty);
-        con.add(easyButton);
-        con.add(intermediateButton);
-        con.add(hardButton);
-        easyButton.addActionListener(this);
-        intermediateButton.addActionListener(this);
-        hardButton.addActionListener(this);
-        easyButton.setPreferredSize(new Dimension(500, 150));
-        intermediateButton.setPreferredSize(new Dimension(500, 150));
-        hardButton.setPreferredSize(new Dimension(500, 150));
-        small.setPreferredSize(new Dimension(500, 150));
-        medium.setPreferredSize(new Dimension(500, 150));
-        large.setPreferredSize(new Dimension(500, 150));
-        setSize(700, 1000);
+        initFrame(); // sets up frame details
+        sizeOptions(); // opens Size Options Panel
+        setVisible(true); // allows user to see sizeOptions()
     }
-    @Override
-    public void actionPerformed(ActionEvent event)
+    private void initFrame()
     {
-        Object source = event.getSource(); // checks to see what gets clicked and sets size
-        if (source == small)
+        // Configures settings for JFrame
+        setSize(400, 500);
+        setFocusable(true);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setFocusTraversalKeysEnabled(false);
+        setTitle("GameOptions");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        // uses Windows UI
+        try { UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); }
+        catch (Exception e) { System.out.println(e); }
+    }
+    private void sizeOptions()
+    {
+        // Creates Panel and layout for buttons
+        JPanel panel = new JPanel();
+        GridBagConstraints Grid = new GridBagConstraints();
+        // adds small, medium and large buttons
+        JButton small = new JButton("Small");
+        JButton medium = new JButton("Medium");
+        JButton large = new JButton("Large");
+
+        panel.setLayout(new GridBagLayout());
+
+        Grid.gridwidth = GridBagConstraints.REMAINDER;
+        Grid.anchor = GridBagConstraints.CENTER;
+        Grid.fill = GridBagConstraints.VERTICAL;
+        Grid.insets = new Insets(5, 0, 5, 0);
+        // sets size of buttons
+        small.setSize(150, 50);
+        medium.setSize(150, 50);
+        large.setSize(150, 50);
+        // adds Buttons to panel
+        panel.add(small, Grid);
+        panel.add(medium, Grid);
+        panel.add(large, Grid);
+        // shows this JPanel
+        setContentPane(panel);
+
+        small.addMouseListener(new MouseAdapter()
         {
-            gridSize = 9;
-            if (bombCount == 0.25 || bombCount == 0.35|| bombCount == 0.50) // checks to see if bomb count has already been clicked in order to hide the GUI box
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                panel.setVisible(false);
+                difficultyOptions();
+            }
+        });
+
+        medium.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                panel.setVisible(false);
+                difficultyOptions();
+            }
+        });
+
+        large.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseClicked(MouseEvent e)
+            {
+                panel.setVisible(false);
+                difficultyOptions();
+            }
+        });
+    }
+    private void difficultyOptions() {
+        JPanel panel = new JPanel();
+        GridBagConstraints Grid = new GridBagConstraints();
+
+        JButton easy = new JButton("Easy");
+        JButton intermediate = new JButton("Intermediate");
+        JButton hard = new JButton("Hard");
+
+        panel.setLayout(new GridBagLayout());
+
+        Grid.gridwidth = GridBagConstraints.REMAINDER;
+        Grid.anchor = GridBagConstraints.CENTER;
+        Grid.fill = GridBagConstraints.VERTICAL;
+        Grid.insets = new Insets(5, 0, 5, 0);
+
+        easy.setSize(150, 50);
+        intermediate.setSize(150, 50);
+        hard.setSize(150, 50);
+
+        panel.add(easy, Grid);
+        panel.add(intermediate, Grid);
+        panel.add(hard, Grid);
+
+        setContentPane(panel);
+
+        easy.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 setVisible(false);
-        }
-        else if(source == medium)
-        {
-            gridSize = 16;
-            if (bombCount == 0.25 || bombCount == 0.35|| bombCount == 0.50)
-                setVisible(false);
-        }
-        else if(source == large)
-        {
-            gridSize = 25;
-            if (bombCount == 0.25 || bombCount == 0.35|| bombCount == 0.50)
-                setVisible(false);
-        }
-        if (source == easyButton) // checks to see what gets clicked and sets difficulty
-        {
-            bombCount = 0.25;
-            if (gridSize == 9 || gridSize == 16|| gridSize == 25)
-                setVisible(false); // checks to see if Size has already been selected in order to hide the GUI box
                 Easy.main(null);
-        }
-        else if(source == intermediateButton)
-        {
-            bombCount = 0.35;
-            if (gridSize == 9 || gridSize == 16|| gridSize == 25)
+            }
+        });
+
+        intermediate.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 setVisible(false);
-        }
-        else if(source == hardButton)
-        {
-            bombCount = 0.50;
-            if (gridSize == 9 || gridSize == 16|| gridSize == 25)
+
+            }
+        });
+
+        hard.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
                 setVisible(false);
-        }
 
-        con.invalidate();
-        con.validate();
-
-    }
-    public static void main(String[] args)
-    {
-        GameOptions frame = new GameOptions();
-        frame.setVisible(true);
-
+            }
+        });
     }
 }
