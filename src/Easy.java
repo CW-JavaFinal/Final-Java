@@ -116,6 +116,9 @@ public class Easy implements Runnable {
                             if (mines[i][j] == 1) {
                                 g.setColor(Color.red);
                                 Main.lose();
+                                setVisible(false);
+                                dispose();
+
                             }
                         }
                         g.fillRect(spacing + i * 80, spacing + j * 80 + 80, 80 - 2*spacing, 80 - 2* spacing);
@@ -135,6 +138,8 @@ public class Easy implements Runnable {
                 if(totalRevealed() >= 81 - totalMines())
                 {
                     Main.win(); //shows "You Win" JOptionPane
+                    setVisible(false);
+                    dispose();
                 }
                 this.setVisible(false); //refreshes page to show clicks
                 this.setVisible(true);
@@ -255,6 +260,7 @@ public class Easy implements Runnable {
             }
             return revealCounter;
         }
+
     }
     @Override
     public void run() {

@@ -33,6 +33,7 @@ public class Main
         // Calls playAgain()
         playAgain();
     }
+
     public static void playAgain()
     {
         // Paints this JOptionPane orange
@@ -43,7 +44,7 @@ public class Main
         boolean wrong = false;
         // Asks player if they want to play again my making them type yes or no
         String answer = JOptionPane.showInputDialog(null, "Would you like to play again? Type Yes or No.");
-        // Calls GameOptions.Main if User types yes
+        // makes new GameOptions if User types yes
         if (answer.equalsIgnoreCase("Yes"))
         {
             new GameOptions();
