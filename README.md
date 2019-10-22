@@ -18,6 +18,8 @@ Our Final game is Minesweeper. Minesweeper is a game where you reveal tiles with
 
 -Play.
 
+-Type yes or no if you want to play again after winning or losing.
+
 # Options
 -Our Minesweeper game only features one option, but every grid is randomly generated
 
