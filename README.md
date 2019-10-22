@@ -3,13 +3,19 @@ Our Final game is Minesweeper. Minesweeper is a game where you reveal tiles with
 
 # How Minesweeper works
 -To reveal a tile, left click it.
+
 -To mark a tile, right click it. 
+
 -If you reveal a bomb, you lose.
+
 -To win, you have to reveal all tiles and mark all bombs. 
 
 # Usage
+
 -Run our main.
+
 -Press play button.
+
 -Play.
 
 # Options
