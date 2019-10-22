@@ -112,13 +112,13 @@ public class GameOptions extends JFrame // creates buttons for difficulty and si
                 setVisible(false);
                 Easy.main(null);
             }
-        });
+        });;
 
         intermediate.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setVisible(false);
 
+                setVisible(false);
             }
         });
 

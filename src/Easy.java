@@ -15,9 +15,21 @@ public class Easy implements Runnable {
     public static class GUI extends JFrame {
         int spacing = 10; //Space between each square
         int surround; //variable for the numbered squares
-
+        int seconds = 0;
+        int minutes = 0;
         Random rand = new Random();
         Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                seconds++;
+                if(seconds == 60)
+                {
+                    seconds = 0;
+                    minutes = minutes + 1;
+                }
+            }
+        };
 
         int mines[][] = new int[9][9]; //array for bomb placement
         int surroundingSquares[][] = new int[9][9]; //array for the squares around the bombs
@@ -33,7 +45,7 @@ public class Easy implements Runnable {
             this.setSize(1286, 836); //Size of GUI
             this.setVisible(true); //Shows GUI
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Properly exits when closed
-
+            timer.scheduleAtFixedRate(task,1000,1000);
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 9; j++) {
                     if (rand.nextInt(100) < 25) //25% chance of there being a bomb
@@ -81,8 +93,16 @@ public class Easy implements Runnable {
                 g.drawString("Easy Minesweeper", 160, 60); //Title
                 g.setFont(new Font("Tahoma", Font.BOLD, 20));
                 g.drawString("Left click to reveal squares!", 720, 100);
-                g.drawString("Right Click to flag squares!", 720, 200);
-
+                g.drawString("Right Click to flag squares!", 720, 140);
+                g.setFont(new Font("Tahoma", Font.BOLD, 40)); //Shows timer
+                if(seconds < 10 && minutes < 10) //adds 0 in front of seconds and minutes if they're both below 10
+                    g.drawString( "0" + minutes + ":0" + seconds, 750, 60);
+                else if(seconds < 10 && minutes >= 10) //adds 0 in front of seconds it's below 10
+                    g.drawString(minutes +":0" + seconds, 750, 60);
+                else if(seconds >= 10 && minutes < 10)//adds 0 in front of minutes if it's below 10
+                    g.drawString("0" + minutes +":" + seconds, 750, 60);
+                else if(seconds >= 10 && minutes >= 10) //if both sec and mins are over 10
+                    g.drawString(minutes +":" + seconds, 750, 60); //adds no 0's
                 for (int i = 0; i < 9; i++) {
                     for (int j = 0; j < 9; j++) {
                         g.setColor(Color.lightGray); //Space color
@@ -94,7 +114,7 @@ public class Easy implements Runnable {
                         if (revealed[i][j] == true) {
                             g.setColor(Color.white); //changes when clicked
                             if (mines[i][j] == 1) {
-                                g.setColor(Color.red); //space turns red and shows "You Lose" JOptionPane
+                                g.setColor(Color.red);
                                 Main.lose();
                             }
                         }
@@ -111,6 +131,10 @@ public class Easy implements Runnable {
                         }
 
                     }
+                }
+                if(totalRevealed() >= 81 - totalMines())
+                {
+                    Main.win(); //shows "You Win" JOptionPane
                 }
                 this.setVisible(false); //refreshes page to show clicks
                 this.setVisible(true);
@@ -205,9 +229,33 @@ public class Easy implements Runnable {
             }
             return false;
         }
-
+        public int totalMines()
+        {
+            int mineCounter = 0;
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if(mines[i][j] == 1)
+                    {
+                        mineCounter++;
+                    }
+                }
+            }
+            return mineCounter;
+        }
+        public int totalRevealed()
+        {
+            int revealCounter = 0;
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    if(revealed[i][j] == true)
+                    {
+                        revealCounter++;
+                    }
+                }
+            }
+            return revealCounter;
+        }
     }
-
     @Override
     public void run() {
 
