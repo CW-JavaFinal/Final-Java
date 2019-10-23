@@ -26,7 +26,7 @@ Our Final game is Minesweeper. Minesweeper is a game where you reveal tiles with
 -Our Minesweeper game only features one option, but every grid is randomly generated
 
 # Our Flowchart
-<img src="Minesweeper Flowchart.png" height = "400" width ="400">
+
 
 # Our Video
 <a href ="https://youtu.be/46vPQlsXBxA">Minesweeper Final Project</a>
