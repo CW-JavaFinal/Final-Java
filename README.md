@@ -16,12 +16,15 @@ Our Final game is Minesweeper. Minesweeper is a game where you reveal tiles with
 
 -Press play button.
 
--Play.
+-Play by clicking on grid spaces.
 
 -Type yes or no if you want to play again after winning or losing.
 
 # Options
 -Our Minesweeper game only features one option, but every grid is randomly generated
 
-<img src="Minesweeper Flowchart.jpg" height = "400" width ="400">
-<a href ="https://youtu.be/46vPQlsXBxA">My video is here</a>
+# Our Flowchart
+<img src="Minesweeper Flowchart.png" height = "400" width ="400">
+
+# Our Video
+<a href ="https://youtu.be/46vPQlsXBxA">Minesweeper Final Project</a>
