@@ -20,6 +20,8 @@ Our Final game is Minesweeper. Minesweeper is a game where you reveal tiles with
 
 -Type yes or no if you want to play again after winning or losing.
 
+-To exit during the game, simply click the close button on the window.
+
 # Options
 -Our Minesweeper game only features one option, but every grid is randomly generated
 
